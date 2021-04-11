@@ -10,8 +10,6 @@ with open("https _sondag.fi_tilaustuotteet.html", 'r') as in_file, open("siistit
         line = re.sub("&nbsp;", "", line)
         line = re.sub("<br>", "", line)
         out_file.write(line)
-    in_file.close()
-    out_file.close()
 
 # get page source html make soup out of it
 with open("siistityt_tuotteet.html") as f:
@@ -21,8 +19,8 @@ with open("siistityt_tuotteet.html") as f:
 raw = []
 products = soup.find_all("p")
 for item in products:
-    for t in item.children:
-        raw.append(t.string)
+    for text in item.children:
+        raw.append(text.string)
 
 
 # convert tag objects to strings and mark starting point of actual product data
@@ -34,9 +32,8 @@ for i, line in enumerate(raw):
         start = i
 data = data[start:]
 
-data.remove("TILAPÄISESTI LOPPU, LISÄÄ TULOSSA MAHDOLLISIMMAN PIAN.")
-
 # clean up data points
+data.remove("TILAPÄISESTI LOPPU, LISÄÄ TULOSSA MAHDOLLISIMMAN PIAN.")
 for e, dp in enumerate(data):
     data[e] = dp.strip('.').strip(' ').strip('.')
     if data[e] == "None" or len(dp) < 3:
