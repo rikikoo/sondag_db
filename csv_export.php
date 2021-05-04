@@ -4,7 +4,7 @@ function export_from_csv($conn, $target_file, $tab)
 	if (file_exists($target_file))
 	{
 		// Read file
-		$file = fopen($target_file,"r");
+		$file = fopen($target_file, "r");
 		$row = 0;
 		$importData_arr = array();
 
@@ -21,15 +21,12 @@ function export_from_csv($conn, $target_file, $tab)
 		}
 		fclose($file);
 
-		// Import to database
-		foreach($importData_arr as $t_row)
-		{
-			// Insert record
-			$td_row = implode(",", $t_row);
-			$insert_query = "INSERT INTO `$tab` VALUES ($td_row)";
-			if (!mysqli_query($conn, $insert_query))
-				die("FUBAR\n");
-		}
+		$brand = "";
+		
+	}
+	else {
+		echo "Products file not found";
+		header("Location: sondag_product_manager.html");
 	}
 }
 ?>

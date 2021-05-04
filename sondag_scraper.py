@@ -5,7 +5,7 @@ import re
 
 # could not figure out how to get beautifulsoup to get rid of a couple html characters
 # so I had to use this "manual" workaround
-with open("https _sondag.fi_tilaustuotteet.html", 'r') as in_file, open("siistityt_tuotteet.html", 'a') as out_file:
+with open("tuotteet.html", 'r') as in_file, open("siistityt_tuotteet.html", 'a') as out_file:
     for line in in_file:
         line = re.sub("&nbsp;", "", line)
         line = re.sub("<br>", "", line)
@@ -33,7 +33,11 @@ for i, line in enumerate(raw):
 data = data[start:]
 
 # clean up data points
-data.remove("TILAPÄISESTI LOPPU, LISÄÄ TULOSSA MAHDOLLISIMMAN PIAN.")
+try:
+    data.remove("TILAPÄISESTI LOPPU, LISÄÄ TULOSSA MAHDOLLISIMMAN PIAN.")
+except:
+    pass
+
 for e, dp in enumerate(data):
     data[e] = dp.strip('.').strip(' ').strip('.')
     if data[e] == "None" or len(dp) < 3:

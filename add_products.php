@@ -1,11 +1,11 @@
 <?php
 include("install.php");
 
-if ($_POST) {
+if (isset($_POST['submit'])) {
 	$brand = $_POST['brand'];
 	$name = $_POST['name'];
 	$size = $_POST['size'];
-	$price = preg_replace('/,/s', '.', $_POST['price']);
+	$price = preg_replace(',', '.', $_POST['price']);
 	$description = $_POST['description'];
 	$category = $_POST['main_category'];
 
