@@ -1,7 +1,7 @@
 <?php
 function connect()
 {
-	$pw = file_get_contents("private/passwd");
+	$pw = preg_replace("/\n/s", "", file_get_contents("private/passwd"));
 	$mysqli = mysqli_connect("127.0.0.1", "root", $pw, "sondag");
 	if (!$mysqli) {
 	    die("Failed to connect to MySQL");

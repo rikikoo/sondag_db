@@ -15,6 +15,8 @@ with open("tuotteet.html", 'r') as in_file, open("siistityt_tuotteet.html", 'a')
 with open("siistityt_tuotteet.html") as f:
     soup = bs(f, "html.parser")
 
+os.remove("siistityt_tuotteet.html")
+
 # find the paragraphs with product info
 raw = []
 products = soup.find_all("p")
@@ -44,9 +46,9 @@ for e, dp in enumerate(data):
         data.remove(data[e])
 
 # export data to a csv file
-if os.path.exists("tuotteet.csv"):
-    os.remove("tuotteet.csv")
-with open("tuotteet.csv", 'w') as f:
+if os.path.exists("data/tuotteet.csv"):
+    os.remove("data/tuotteet.csv")
+with open("data/tuotteet.csv", 'w') as f:
     w = csv.writer(f)
     for i in range(0, len(data) - 4, 4):
         w.writerow(data[i:i+4])

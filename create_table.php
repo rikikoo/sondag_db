@@ -4,9 +4,9 @@ function create_products_table($conn)
 	$table = "CREATE TABLE IF NOT EXISTS products (
 		product_id INT AUTO_INCREMENT PRIMARY KEY,
 		brand VARCHAR(32),
-		name VARCHAR(32) NOT NULL,
+		name VARCHAR(64) NOT NULL,
 		description VARCHAR(1024) NOT NULL,
-		main_category VARCHAR(16)
+		main_category VARCHAR(32)
 	)";
 
 	$ret = mysqli_query($conn, $table);
@@ -19,7 +19,7 @@ function create_sku_table($conn)
 		sku_id INT AUTO_INCREMENT PRIMARY KEY,
 		product_id INT,
 		size VARCHAR(16),
-		price FLOAT,
+		price DECIMAL(18, 2),
 		image VARCHAR(64),
 		FOREIGN KEY (product_id) REFERENCES products(product_id)
 	)";

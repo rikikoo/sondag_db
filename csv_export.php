@@ -53,17 +53,13 @@ function csv_to_db($conn, $data)
 	$data = array_merge($data, $split_product);
 
 	foreach ($data as $key => $value) {
-		$product_query = "INSERT INTO `products` (
-			name,
-			description,
-		)
-		VALUES (
-			$value[0],
-			$value[3]
-		)";
+		$name = mysqli_real_escape_string($conn, $value[0]);
+		$desc = mysqli_real_escape_string($conn, $value[3]);
+		$product_query = "INSERT INTO `products` (name, description)
+			VALUES ('$name', '$desc')";
 		$ret = mysqli_query($conn, $product_query);
 		if (!$ret) {
-			echo ("SQL query failed\n");
+			echo "SQL query failed\n" . mysqli_error($conn);
 			return (false);
 		}
 	}

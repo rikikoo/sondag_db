@@ -1,6 +1,7 @@
 <?php
 include "create_table.php";
 include "connect.php";
+include "csv_export.php";
 
 $conn = connect();
 if (!$conn) {
@@ -11,8 +12,7 @@ $sku = create_sku_table($conn);
 if (!$prods || !$sku) {
 	die("Error when initializing product tables");
 }
-$ret = csv_to_db($conn, "tuotteet.csv");
-if (!$ret) {
-	echo "ERROR";
-}
+$data = get_csv_data("data/tuotteet.csv");
+$ret = csv_to_db($conn, $data);
+var_dump($ret);
 ?>
