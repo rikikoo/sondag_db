@@ -4,23 +4,15 @@ include "connect.php";
 
 $conn = connect();
 if (!$conn) {
-	die("ERROR: (" . $conn->connect_errno . ") " . $conn->connect_error);
+	die("ERROR: $conn->connect_error");
 }
-$query = create_products_table();
-$res = mysqli_query($conn, $query);
-if (!$res) {
-	die("Error when initializing products table");
-export_from_csv($conn, "tuotteet.csv", "products");
+$prods = create_products_table($conn);
+$sku = create_sku_table($conn);
+if (!$prods || !$sku) {
+	die("Error when initializing product tables");
+}
+$ret = csv_to_db($conn, "tuotteet.csv");
+if (!$ret) {
+	echo "ERROR";
 }
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-</head>
-<body>
-	<table>
-		<th><?php echo </th>
-	</table>
-</body>
-</html>
