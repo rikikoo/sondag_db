@@ -58,8 +58,10 @@ function csv_to_db($conn, $data)
 			VALUES ('$name', '$desc')";
 		$ret = mysqli_query($conn, $product_query);
 		if (!$ret) {
-			echo "SQL query #1 failed\n" . mysqli_error($conn) . PHP_EOL;
-			return (false);
+			if (preg_match("/Duplicate entry/", mysqli_error($conn)) === false) {
+				echo "SQL query #1 failed\n" . mysqli_error($conn) . PHP_EOL;
+				return (false);
+			}
 		}
 	}
 
@@ -77,9 +79,12 @@ function csv_to_db($conn, $data)
 			)";
 		$ret = mysqli_query($conn, $sku_query);
 		if (!$ret) {
-			echo "SQL query #2 failed\n" . mysqli_error($conn) . PHP_EOL;
-			return (false);
+			if (preg_match("/Duplicate entry/", mysqli_error($conn)) === false) {
+				echo "SQL query #2 failed\n" . mysqli_error($conn) . PHP_EOL;
+				return (false);
 		}
 	}
+
+	return (true);
 }
 ?>
