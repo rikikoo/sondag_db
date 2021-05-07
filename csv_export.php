@@ -50,8 +50,7 @@ function csv_to_db($conn, $data)
 		}
 	}
 
-	$data = array_merge($data, $split_product);
-
+	# add unique product names and descriptions to products table
 	foreach ($data as $key => $value) {
 		$name = mysqli_real_escape_string($conn, $value[0]);
 		$desc = mysqli_real_escape_string($conn, $value[3]);
@@ -59,7 +58,26 @@ function csv_to_db($conn, $data)
 			VALUES ('$name', '$desc')";
 		$ret = mysqli_query($conn, $product_query);
 		if (!$ret) {
-			echo "SQL query failed\n" . mysqli_error($conn);
+			echo "SQL query #1 failed\n" . mysqli_error($conn) . PHP_EOL;
+			return (false);
+		}
+	}
+
+	$data = array_merge($data, $split_product);
+	# add sizes and prices to sku_products
+	foreach ($data as $key => $value) {
+		$name = mysqli_real_escape_string($conn, $value[0]);
+		$size = mysqli_real_escape_string($conn, $value[1]);
+		$price = preg_replace("/,/s", ".", $value[2]);
+		$price = (float)preg_replace("/€/s", "", $price);
+		$sku_query = "INSERT INTO `sku_products` (size, price, product_id)
+			VALUES ('$size', $price, (SELECT product_id
+									FROM `products`
+									WHERE name LIKE '$name')
+			)";
+		$ret = mysqli_query($conn, $sku_query);
+		if (!$ret) {
+			echo "SQL query #2 failed\n" . mysqli_error($conn) . PHP_EOL;
 			return (false);
 		}
 	}

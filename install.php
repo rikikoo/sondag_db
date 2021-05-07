@@ -14,5 +14,4 @@ if (!$prods || !$sku) {
 }
 $data = get_csv_data("data/tuotteet.csv");
 $ret = csv_to_db($conn, $data);
-var_dump($ret);
 ?>

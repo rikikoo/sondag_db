@@ -4,8 +4,8 @@ function create_products_table($conn)
 	$table = "CREATE TABLE IF NOT EXISTS products (
 		product_id INT AUTO_INCREMENT PRIMARY KEY,
 		brand VARCHAR(32),
-		name VARCHAR(64) NOT NULL,
-		description VARCHAR(1024) NOT NULL,
+		name VARCHAR(64) UNIQUE NOT NULL,
+		description VARCHAR(2048) NOT NULL,
 		main_category VARCHAR(32)
 	)";
 
