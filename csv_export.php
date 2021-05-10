@@ -82,9 +82,9 @@ function csv_to_db($conn, $data)
 			if (preg_match("/Duplicate entry/", mysqli_error($conn)) === false) {
 				echo "SQL query #2 failed\n" . mysqli_error($conn) . PHP_EOL;
 				return (false);
+			}
 		}
 	}
-
 	return (true);
 }
 ?>

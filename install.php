@@ -16,7 +16,6 @@ $data = get_csv_data("data/tuotteet.csv");
 $ret = csv_to_db($conn, $data);
 if ($ret) {
 	echo "Product tables successfully initialized\n";
-	header("Location: sondag_product_manager.html");
 } else {
 	die("\n\nERROR\n\n");
 }
