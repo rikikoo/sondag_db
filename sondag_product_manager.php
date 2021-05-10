@@ -18,6 +18,7 @@ $query = "SELECT
 		ON products.product_id = sku_products.product_id;"
 $prod = mysqli_query($conn, $query, MYSQLI_USE_RESULT);
 ?>
+
 	<body>
 		<div class="prodTab">
 			<table border=1>
@@ -32,13 +33,13 @@ $prod = mysqli_query($conn, $query, MYSQLI_USE_RESULT);
 				</thead>
 				<?php while ($row = mysqli_fetch_array($prod, MYSQLI_ASSOC)) : ?>
 					<tr>
-						<td><?php echo $row["product_id"] ?></td>
-						<td><?php echo $row["brand"] ?></td>
-						<td><?php echo $row["name"] ?></td>
-						<td><?php echo $row["size"] ?></td>
-						<td><?php echo $row["price"] ?></td>
-						<td><?php echo $row["description"] ?></td>
-						<td><?php echo $row["main_category"] ?></td>
+						<td align="center"><?php echo $row["product_id"] ?></td>
+						<td align="center"><?php echo $row["brand"] ?></td>
+						<td align="center"><?php echo $row["name"] ?></td>
+						<td align="center"><?php echo $row["size"] ?></td>
+						<td align="center"><?php echo $row["price"] ?></td>
+						<td align="center"><?php echo $row["description"] ?></td>
+						<td align="center"><?php echo $row["main_category"] ?></td>
 					</tr>
 				<?php endwhile; ?>
 			</table>
