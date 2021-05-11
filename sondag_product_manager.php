@@ -15,7 +15,7 @@ $query = "SELECT
 		products.description, products.main_category
 		FROM products
 		LEFT JOIN sku_products
-		ON products.product_id = sku_products.product_id;"
+		ON products.product_id = sku_products.product_id;";
 $prod = mysqli_query($conn, $query, MYSQLI_USE_RESULT);
 ?>
 
